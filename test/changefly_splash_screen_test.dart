@@ -22,6 +22,7 @@ void main() {
     // Verify ticker providers are running
     expect(tester.hasRunningAnimations, true);
 
+    // The animation lasts for 2 seconds so
     // wait for the animations to reach halfway
     await tester.pump(Duration(seconds: 1));
 
@@ -35,7 +36,7 @@ void main() {
     // wait for the animations to finish
     await tester.pump(Duration(seconds: 1));
 
-    // Verify that`Changefly` is displayed at half opacity
+    // Verify that`Changefly` is displayed at full opacity
     expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 1.0);
 
     // wait for any remaining frames.

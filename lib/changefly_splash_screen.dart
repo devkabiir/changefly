@@ -23,6 +23,9 @@ class _ChangeflyNameState extends State<ChangeflyName> with SingleTickerProvider
 
   @override
   void dispose() {
+    // This is required to make sure resources are freed
+    // when navigating away from a screen or when this
+    // widget is no longer in view/destroyed.
     animationController.dispose();
     super.dispose();
   }

@@ -38,6 +38,8 @@ void main() {
     // Verify that`Changefly` is displayed at half opacity
     expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 1.0);
 
+    // wait for any remaining frames.
+    await tester.pumpAndSettle();
     // Verify there are no animations remaining
     expect(tester.hasRunningAnimations, false);
   });

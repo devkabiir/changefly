@@ -1,12 +1,44 @@
-import 'package:changefly/main.dart';
+import 'package:changefly/changefly_splash_screen.dart';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  testWidgets('splash screen shows "Changefly" text', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(new ChangeflyApp());
+  testWidgets('fades in the changefly-name image', (WidgetTester tester) async {
+    // Verify there are no widgets
+    expect(find.byType(Widget), findsNothing);
 
-    // Verify that`Changefly` is displayed.
-    expect(find.text('Changefly'), findsOneWidget);
+    // Create a `MaterialApp` with our splash screen and trigger a frame
+    await tester.pumpWidget(
+      Container(
+        color: Colors.white,
+        child: ChangeflyName(),
+      ),
+    );
+
+    expect(find.byType(ChangeflyName), findsOneWidget);
+    expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 0.0);
+
+    // Verify ticker providers are running
+    expect(tester.hasRunningAnimations, true);
+
+    // wait for the animations to reach halfway
+    await tester.pump(Duration(seconds: 1));
+
+    // Verify that`Changefly` is displayed at atleast half opacity
+    // The opacity at this stage can be anything from 0.0 to <1.0,
+    // since flutter is tying to fake as many things as possible
+    // including `Duration` and `Ticker`.
+    double opacity = tester.widget<Opacity>(find.byType(Opacity)).opacity;
+    expect(opacity >= 0.5 && opacity < 1.0, true);
+
+    // wait for the animations to finish
+    await tester.pump(Duration(seconds: 1));
+
+    // Verify that`Changefly` is displayed at half opacity
+    expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 1.0);
+
+    // Verify there are no animations remaining
+    expect(tester.hasRunningAnimations, false);
   });
 }

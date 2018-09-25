@@ -1,5 +1,102 @@
 import 'package:flutter/material.dart';
 
+class ChangeflyCube extends StatefulWidget {
+  @override
+  _ChangeflyCubeState createState() => _ChangeflyCubeState();
+}
+
+class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateMixin {
+  AnimationController controllerTop;
+  AnimationController controllerLeft;
+  AnimationController controllerRight;
+
+  Animation<double> animationTop;
+  Animation<double> animationLeft;
+  Animation<double> animationRight;
+
+  @override
+  void initState() {
+    super.initState();
+    controllerTop = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+    controllerLeft = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    controllerRight = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+
+    animationTop = CurvedAnimation(curve: Curves.linear, parent: controllerTop)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((AnimationStatus s) {
+        if (s == AnimationStatus.completed) {
+          controllerLeft.forward();
+        }
+      });
+
+    animationLeft = CurvedAnimation(curve: Curves.linear, parent: controllerLeft)
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((AnimationStatus s) {
+        if (s == AnimationStatus.completed) {
+          controllerRight.forward();
+        }
+      });
+
+    animationRight = CurvedAnimation(curve: Curves.linear, parent: controllerRight)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    controllerTop.forward();
+  }
+
+  @override
+  void dispose() {
+    // This is required to make sure resources are freed
+    // when navigating away from a screen or when this
+    // widget is no longer in view/destroyed.
+    controllerTop.dispose();
+    controllerLeft.dispose();
+    controllerRight.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 64.0, vertical: 0.0),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Opacity(
+            opacity: animationTop.value,
+            child: Image.asset(
+              'assets/changefly-cube-top.png',
+              width: 200.0,
+              height: 200.0,
+            ),
+          ),
+          Opacity(
+            opacity: animationLeft.value,
+            child: Image.asset(
+              'assets/changefly-cube-left.png',
+              width: 200.0,
+              height: 200.0,
+            ),
+          ),
+          Opacity(
+            opacity: animationRight.value,
+            child: Image.asset(
+              'assets/changefly-cube-right.png',
+              width: 200.0,
+              height: 200.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class ChangeflyName extends StatefulWidget {
   @override
   _ChangeflyNameState createState() => _ChangeflyNameState();
@@ -59,6 +156,7 @@ class _ChangeflySplashScreenState extends State<ChangeflySplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ChangeflyCube(),
             ChangeflyName(),
           ],
         ),

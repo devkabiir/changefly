@@ -1,4 +1,4 @@
-import 'package:changefly/ChangeflySpashScreen.dart';
+import 'package:changefly/changefly_splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ChangeflyApp());

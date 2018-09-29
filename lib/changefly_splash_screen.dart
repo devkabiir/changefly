@@ -139,14 +139,12 @@ class _ChangeflyNameState extends State<ChangeflyName> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-        child: Opacity(
+    return Hero(
+      tag: 'appbar-title',
+      child: Opacity(
         key: const Key('changefly-name'),
-          opacity: animation.value,
-          child: Image.asset('assets/changefly-name.png'),
-        ),
+        opacity: animation.value,
+        child: Image.asset('assets/changefly-name.png'),
       ),
     );
   }

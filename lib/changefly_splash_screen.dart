@@ -98,6 +98,10 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
 }
 
 class ChangeflyName extends StatefulWidget {
+  /// Callback to execute once all animations are completed
+  final Function onAnimationComplete;
+  ChangeflyName({Function onAnimationComplete}) : this.onAnimationComplete = onAnimationComplete;
+
   @override
   _ChangeflyNameState createState() => _ChangeflyNameState();
 }
@@ -113,6 +117,12 @@ class _ChangeflyNameState extends State<ChangeflyName> with SingleTickerProvider
     animation = CurvedAnimation(curve: Curves.linear, parent: animationController)
       ..addListener(() {
         setState(() {});
+      })
+      ..addStatusListener((AnimationStatus s) {
+        // Execute the callback if there is one on animation completion
+        if (s == AnimationStatus.completed && widget.onAnimationComplete != null) {
+          widget.onAnimationComplete();
+        }
       });
 
     animationController.forward();

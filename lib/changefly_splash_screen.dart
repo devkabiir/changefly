@@ -71,24 +71,24 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
             opacity: animationTop.value,
             child: Image.asset(
               'assets/changefly-cube-top.png',
-              width: 200.0,
-              height: 200.0,
+              width: animationTop.value * 200.0,
+              height: animationTop.value * 200.0,
             ),
           ),
           Opacity(
             opacity: animationLeft.value,
             child: Image.asset(
               'assets/changefly-cube-left.png',
-              width: 200.0,
-              height: 200.0,
+              width: animationLeft.value * 200.0,
+              height: animationLeft.value * 200.0,
             ),
           ),
           Opacity(
             opacity: animationRight.value,
             child: Image.asset(
               'assets/changefly-cube-right.png',
-              width: 200.0,
-              height: 200.0,
+              width: animationRight.value * 200.0,
+              height: animationRight.value * 200.0,
             ),
           ),
         ],

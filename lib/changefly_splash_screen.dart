@@ -143,6 +143,7 @@ class _ChangeflyNameState extends State<ChangeflyName> with SingleTickerProvider
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
         child: Opacity(
+        key: const Key('changefly-name'),
           opacity: animation.value,
           child: Image.asset('assets/changefly-name.png'),
         ),

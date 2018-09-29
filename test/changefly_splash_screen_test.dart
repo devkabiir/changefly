@@ -30,14 +30,14 @@ void main() {
     // The opacity at this stage can be anything from 0.0 to <1.0,
     // since flutter is tying to fake as many things as possible
     // including `Duration` and `Ticker`.
-    double opacity = tester.widget<Opacity>(find.byType(Opacity)).opacity;
+    double opacity = tester.widget<Opacity>(find.byKey(const Key('changefly-name'))).opacity;
     expect(opacity >= 0.5 && opacity < 1.0, true);
 
     // wait for the animations to finish
     await tester.pump(Duration(seconds: 1));
 
     // Verify that`Changefly` is displayed at full opacity
-    expect(tester.widget<Opacity>(find.byType(Opacity)).opacity, 1.0);
+    expect(tester.widget<Opacity>(find.byKey(const Key('changefly-name'))).opacity, 1.0);
 
     // wait for any remaining frames.
     await tester.pumpAndSettle();

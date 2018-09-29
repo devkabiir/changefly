@@ -17,9 +17,9 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
-    controllerTop = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
-    controllerLeft = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    controllerRight = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    controllerTop = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    controllerLeft = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+    controllerRight = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
 
     animationTop = CurvedAnimation(curve: Curves.linear, parent: controllerTop)
       ..addListener(() {

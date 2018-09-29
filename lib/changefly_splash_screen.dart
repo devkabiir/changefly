@@ -149,7 +149,9 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
 class ChangeflyName extends StatefulWidget {
   /// Callback to execute once all animations are completed
   final Function onAnimationComplete;
-  ChangeflyName({Function onAnimationComplete}) : this.onAnimationComplete = onAnimationComplete;
+  const ChangeflyName({Key key, Function onAnimationComplete})
+      : this.onAnimationComplete = onAnimationComplete,
+        super(key: key);
 
   @override
   _ChangeflyNameState createState() => _ChangeflyNameState();

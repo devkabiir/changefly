@@ -33,6 +33,11 @@ class DelayedMaterialPageRoute extends MaterialPageRoute<String> {
 }
 
 class ChangeflyCube extends StatefulWidget {
+  /// Callback to execute once all animations are completed
+  final Function onAnimationComplete;
+
+  const ChangeflyCube({Key key, this.onAnimationComplete}) : super(key: key);
+
   @override
   _ChangeflyCubeState createState() => _ChangeflyCubeState();
 }
@@ -81,11 +86,9 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
         setState(() {});
       })
       ..addStatusListener((AnimationStatus s) {
-        // Once this is completed go to main screen
-        if (s == AnimationStatus.completed) {
-          /// We need to use a custom [TransitionRoute] here to allow hero animation
-          /// to take place smoothly
-          Navigator.of(context).push(DelayedMaterialPageRoute(builder: (BuildContext context) => MainScreen()));
+        // Execute the callback if there is one on animation completion
+        if (s == AnimationStatus.completed && widget.onAnimationComplete != null) {
+          widget.onAnimationComplete();
         }
       });
 
@@ -227,7 +230,14 @@ class _ChangeflySplashScreenState extends State<ChangeflySplashScreen> {
               child: ChangeflyName(
                 onAnimationComplete: () {
                   setState(() {
-                    cube = ChangeflyCube();
+                    cube = ChangeflyCube(
+                      onAnimationComplete: () {
+                        /// We need to use a custom [TransitionRoute] here to allow hero animation
+                        /// to take place smoothly
+                        Navigator.of(context)
+                            .push(DelayedMaterialPageRoute(builder: (BuildContext context) => MainScreen()));
+                      },
+                    );
                   });
                 },
               ),

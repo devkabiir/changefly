@@ -24,7 +24,7 @@ void main() {
 
     // The animation lasts for 2 seconds so
     // wait for the animations to reach halfway
-    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(milliseconds: 500));
 
     // Verify that`Changefly` is displayed at atleast half opacity
     // The opacity at this stage can be anything from 0.0 to <1.0,
@@ -34,7 +34,7 @@ void main() {
     expect(opacity >= 0.5 && opacity < 1.0, true);
 
     // wait for the animations to finish
-    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(milliseconds: 500));
 
     // Verify that`Changefly` is displayed at full opacity
     expect(tester.widget<Opacity>(find.byKey(const Key('changefly-name'))).opacity, 1.0);

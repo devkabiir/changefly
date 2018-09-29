@@ -113,7 +113,7 @@ class _ChangeflyNameState extends State<ChangeflyName> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
+    animationController = AnimationController(vsync: this, duration: Duration(seconds: 1));
     animation = CurvedAnimation(curve: Curves.linear, parent: animationController)
       ..addListener(() {
         setState(() {});

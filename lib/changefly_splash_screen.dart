@@ -111,25 +111,31 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
         alignment: Alignment.center,
         children: [
           Opacity(
+            key: const Key('changefly-cube-top'),
             opacity: animationTop.value,
             child: Image.asset(
               'assets/changefly-cube-top.png',
+              key: const Key('changefly-cube-top-image'),
               width: animationTop.value * 200.0,
               height: animationTop.value * 200.0,
             ),
           ),
           Opacity(
+            key: const Key('changefly-cube-left'),
             opacity: animationLeft.value,
             child: Image.asset(
               'assets/changefly-cube-left.png',
+              key: const Key('changefly-cube-left-image'),
               width: animationLeft.value * 200.0,
               height: animationLeft.value * 200.0,
             ),
           ),
           Opacity(
+            key: const Key('changefly-cube-right'),
             opacity: animationRight.value,
             child: Image.asset(
               'assets/changefly-cube-right.png',
+              key: const Key('changefly-cube-right-image'),
               width: animationRight.value * 200.0,
               height: animationRight.value * 200.0,
             ),

@@ -62,8 +62,8 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 64.0, vertical: 0.0),
+    return Hero(
+      tag: 'appbar-logo',
       child: Stack(
         alignment: Alignment.center,
         children: [

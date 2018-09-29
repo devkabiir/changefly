@@ -53,11 +53,13 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
     controllerLeft = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
     controllerRight = AnimationController(vsync: this, duration: Duration(milliseconds: 200));
 
+    // Animate the top part of the cube
     animationTop = CurvedAnimation(curve: Curves.linear, parent: controllerTop)
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((AnimationStatus s) {
+        // Once this is completed animate the left part
         if (s == AnimationStatus.completed) {
           controllerLeft.forward();
         }
@@ -68,6 +70,7 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
         setState(() {});
       })
       ..addStatusListener((AnimationStatus s) {
+        // Once this is completed animate the right part
         if (s == AnimationStatus.completed) {
           controllerRight.forward();
         }

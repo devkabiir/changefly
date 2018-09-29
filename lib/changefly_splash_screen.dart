@@ -1,5 +1,37 @@
 import 'package:flutter/material.dart';
 
+import 'package:changefly/main_screen.dart';
+
+class DelayedMaterialPageRoute extends MaterialPageRoute<String> {
+  /// Builds the primary contents of the route.
+  final WidgetBuilder builder;
+
+  @override
+  final Duration transitionDuration;
+
+  @override
+  final bool maintainState;
+
+  /// Creates a page route for use in a material design app,
+  /// With [transitionDuration] set to 1 second by default
+  DelayedMaterialPageRoute(
+      {@required this.builder,
+      RouteSettings settings,
+      this.maintainState = true,
+      bool fullscreenDialog = false,
+      this.transitionDuration = const Duration(seconds: 1)})
+      : assert(builder != null),
+        assert(transitionDuration != null),
+        super(
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
+          builder: builder,
+        ) {
+    // ignore: prefer_asserts_in_initializer_lists , https://github.com/dart-lang/sdk/issues/31223
+    assert(opaque);
+  }
+}
+
 class ChangeflyCube extends StatefulWidget {
   @override
   _ChangeflyCubeState createState() => _ChangeflyCubeState();
@@ -44,6 +76,14 @@ class _ChangeflyCubeState extends State<ChangeflyCube> with TickerProviderStateM
     animationRight = CurvedAnimation(curve: Curves.linear, parent: controllerRight)
       ..addListener(() {
         setState(() {});
+      })
+      ..addStatusListener((AnimationStatus s) {
+        // Once this is completed go to main screen
+        if (s == AnimationStatus.completed) {
+          /// We need to use a custom [TransitionRoute] here to allow hero animation
+          /// to take place smoothly
+          Navigator.of(context).push(DelayedMaterialPageRoute(builder: (BuildContext context) => MainScreen()));
+        }
       });
 
     controllerTop.forward();

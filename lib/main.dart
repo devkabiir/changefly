@@ -9,7 +9,7 @@ class ChangeflyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Changefly Animation Demo',
-      home: ChangeflySplashScreen(),
+      home: SafeArea(child: ChangeflySplashScreen()),
     );
   }
 }

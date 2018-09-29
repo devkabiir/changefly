@@ -158,6 +158,8 @@ class ChangeflySplashScreen extends StatefulWidget {
 }
 
 class _ChangeflySplashScreenState extends State<ChangeflySplashScreen> {
+  ChangeflyCube cube;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,8 +167,20 @@ class _ChangeflySplashScreenState extends State<ChangeflySplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ChangeflyCube(),
-            ChangeflyName(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 64.0, vertical: 0.0),
+              child: cube,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+              child: ChangeflyName(
+                onAnimationComplete: () {
+                  setState(() {
+                    cube = ChangeflyCube();
+                  });
+                },
+              ),
+            ),
           ],
         ),
       ),
